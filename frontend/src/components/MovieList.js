@@ -1,8 +1,9 @@
+import {map} from 'lodash'
 const MovieList = function (props) {
     const { movies, onMovieClick } = props;
     return (
         <ul>
-            {movies.map((movie) => {
+            {map(movies,(movie) => {
                 return (<li onClick={() => onMovieClick(movie.title)}>
                     {movie.title}
                 </li>)

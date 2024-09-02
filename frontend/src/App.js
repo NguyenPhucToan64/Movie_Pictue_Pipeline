@@ -30,6 +30,8 @@ export default function App() {
         try {
             const result = await axios.get(apiUrl); // Thay 'api_url' bằng URL thực tế của API bạn muốn gọi
             setMovies(result.data); // Cập nhật state với dữ liệu nhận được
+            console.log(result.data);
+            
         } catch (error) {
             console.error('Error fetching data: ', error);
         }
