@@ -3,7 +3,7 @@ import MovieList from './components/MovieList';
 import MovieDetails from './components/MovieDetails';
 import './App.css';
 
-export default async function App() {
+export default function App() {
   const apiUrl = process.env.REACT_APP_MOVIE_API_URL + '/movies';
   console.log('APIf',apiUrl);
   
