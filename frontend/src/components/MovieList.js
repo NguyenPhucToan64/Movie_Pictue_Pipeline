@@ -3,7 +3,7 @@ const MovieList = function (props) {
     const { movies, onMovieClick } = props;
     return (
         <ul>
-            {map(movies,(movie) => {
+            {map(movies.movies,(movie) => {
                 return (<li onClick={() => onMovieClick(movie.title)}>
                     {movie.title}
                 </li>)
