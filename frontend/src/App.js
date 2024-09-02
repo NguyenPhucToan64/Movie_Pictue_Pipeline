@@ -23,21 +23,21 @@ export default function App() {
     }
   ]);
 
-  useEffect(async ()=>{
-    async function fetchData() {
-      try {
-          const response = await fetch(apiUrl); // Sử dụng URL của API thực tế
-          const data = await response.json();
-          setMovies(data); // Cập nhật state abc với dữ liệu mới
-      } catch (error) {
-          console.error('Failed to fetch data: ', error);
-          // Xử lý lỗi tại đây nếu cần
-      }
-  }
+  // useEffect(async ()=>{
+  //   async function fetchData() {
+  //     try {
+  //         const response = await fetch(apiUrl); // Sử dụng URL của API thực tế
+  //         const data = await response.json();
+  //         setMovies(data); // Cập nhật state abc với dữ liệu mới
+  //     } catch (error) {
+  //         console.error('Failed to fetch data: ', error);
+  //         // Xử lý lỗi tại đây nếu cần
+  //     }
+  // }
 
-  fetchData();
+  // fetchData();
 
-  },[])
+  // },[])
 
   const handleMovieClick = (movie) => {
     setSelectedMovie(movie);
