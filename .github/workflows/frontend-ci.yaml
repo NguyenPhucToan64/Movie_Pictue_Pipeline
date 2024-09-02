@@ -1,0 +1,100 @@
+# Workflow name
+name: frontend-workflow-ci
+
+# Triggers for the workflow
+on:
+    # Manual trigger using the workflow_dispatch event
+    workflow_dispatch:
+    # Automatic trigger on pull request events targeting the main branch
+    pull_request:
+        branches:
+            - main
+        paths: frontend/**
+
+jobs:
+    linting:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code source frontend
+              uses: actions/checkout@v3
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: latest
+            - name: Cache node modules
+              uses: actions/cache@v2
+              with:
+                  path: ~/.npm
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: ${{ runner.os }}-node-
+            - name: Install Dependencies
+              run: |
+                  cd frontend
+                  npm install
+            - name: Run linting
+              run: |
+                  cd frontend
+                  npm run lint
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code source frontend
+              uses: actions/checkout@v3
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: latest
+
+            - name: Cache node modules
+              uses: actions/cache@v2
+              with:
+                  path: ~/.npm
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: ${{ runner.os }}-node-
+
+            - name: Install Dependencies
+
+              run: |
+                  cd frontend
+                  npm install
+
+            - name: Run test
+              run: |
+                  cd frontend
+                  npm run test
+
+    build:
+        runs-on: ubuntu-latest
+        needs: [linting, test]
+        environment: admin
+        steps:
+            - name: Checkout code source frontend
+              uses: actions/checkout@v3
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: latest
+
+            - name: Cache node modules
+              uses: actions/cache@v2
+              with:
+                  path: ~/.npm
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: ${{ runner.os }}-node-
+
+            - name: Install Dependencies
+
+              run: |
+                  cd frontend
+                  npm install
+
+            - name: Run test
+              run: |
+                  cd frontend
+                  npm run test
+            - name: Build docker
+              env:
+                  IMAGE_TAG: ${{ github.sha }}
+              run: |
+                  cd frontend
+                  docker build --build-arg REACT_APP_MOVIE_API_URL="http://localhost:5000" -t "frontend:$IMAGE_TAG" .
