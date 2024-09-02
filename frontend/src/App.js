@@ -23,21 +23,19 @@ export default function App() {
     }
   ]);
 
-  // useEffect(async ()=>{
-  //   async function fetchData() {
-  //     try {
-  //         const response = await fetch(apiUrl); // Sử dụng URL của API thực tế
-  //         const data = await response.json();
-  //         setMovies(data); // Cập nhật state abc với dữ liệu mới
-  //     } catch (error) {
-  //         console.error('Failed to fetch data: ', error);
-  //         // Xử lý lỗi tại đây nếu cần
-  //     }
-  // }
+  useEffect(() => {
+    // Hàm fetchData sử dụng Axios để gọi API
+    const fetchData = async () => {
+        try {
+            const result = await axios.get(apiUrl); // Thay 'api_url' bằng URL thực tế của API bạn muốn gọi
+            setMovies(result.data); // Cập nhật state với dữ liệu nhận được
+        } catch (error) {
+            console.error('Error fetching data: ', error);
+        }
+    };
 
-  // fetchData();
-
-  // },[])
+    fetchData();
+}, []); // Mảng rỗng đảm bảo r
 
   const handleMovieClick = (movie) => {
     setSelectedMovie(movie);
