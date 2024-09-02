@@ -3,8 +3,10 @@ import MovieList from './components/MovieList';
 import MovieDetails from './components/MovieDetails';
 import './App.css';
 
-const apiUrl = process.env.REACT_APP_MOVIE_API_URL + '/movies/';
-export default function App() {
+export default async function App() {
+  const apiUrl = process.env.REACT_APP_MOVIE_API_URL + '/movies';
+  console.log('API',apiUrl);
+  
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [movies, setMovies] = useState(null);
 
@@ -14,7 +16,7 @@ export default function App() {
     console.log('Movies:', moviesfetch);
     setMovies(moviesfetch)
 
-  },[])
+  },[movies])
 
   const handleMovieClick = (movie) => {
     setSelectedMovie(movie);
