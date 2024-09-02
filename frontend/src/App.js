@@ -5,7 +5,7 @@ import './App.css';
 
 export default async function App() {
   const apiUrl = process.env.REACT_APP_MOVIE_API_URL + '/movies';
-  console.log('API',apiUrl);
+  console.log('APIf',apiUrl);
   
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [movies, setMovies] = useState(null);
